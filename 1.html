@@ -877,3 +877,44 @@ function showChart(options){
         return undefined;
     }
 </script>
+
+function request(service, queryString, pageNo, pageSize, asyncFlag){
+    var args = Array.prototype.slice.call(arguments);
+    var options={};
+    var flag = true;
+    var defaults ={
+            service:service,
+            data:{
+                Page:{
+                    pageNo: 1,
+                    pageSize:100
+                }
+            }
+        };
+
+    if(args.length===1){
+        options = $.extend(true,defaults,args[0]) 
+        console.log(options);      
+    }else{
+
+        if (typeof(pageNo) == "undefined") pageNo = "1";
+        if (typeof(pageSize) == "undefined") pageSize = "-1";
+        if (typeof(queryString) == "undefined") queryString = "";
+        if (typeof(asyncFlag) != "undefined" && asyncFlag == 1) {
+            flag = false;
+        }
+        options =$.extend(true,defaults,queryString);
+        console.log(options); 
+     }
+    
+    var pdata =JSON.stringify(options.data);
+    console.log(pdata)
+    var params = "pdata=" + pdata; //URL参数
+       return  $.ajax({
+            url: options.service,
+            type: 'get',
+            data: params,
+            async: flag,
+            dataType: "json"
+        });
+    }

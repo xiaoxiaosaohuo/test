@@ -87,7 +87,7 @@
 <br>
 <br>
 <div class="col-md-6 col-lg-6" id="selectpicker">
-<select  id="aaaa" name="level"  class="form-control selectpicker" multiple="multiple" >
+<!-- <select  id="aaaa" name="level"  class="form-control selectpicker" multiple="multiple" >
     <option role="option" value="0">集团级别</option>
     <option role="option" value="1">店铺级别</option>
     <option role="option" value="2">品牌级别</option>
@@ -102,27 +102,47 @@
     <option role="option" value="2">品牌级别</option>
     <option role="option" value="0">集团级别</option>
     <option role="option" value="1">店铺级别</option>
-</select>
+</select> -->
 </div>
-<script src="./js/common/bootstrap-select.js"></script>
+<!-- <script src="./js/common/bootstrap-select.js"></script> -->
 <script>
-
-var ddd = $(".selectpicker").selectpicker({
-    container:"#selectpicker",
-    size:5,
-    actionsBox:true,
-    liveSearch:true,
-    title:"请选择...",
-});
-
-
+// var ddd = $(".selectpicker").selectpicker({
+//     container:"#selectpicker",
+//     size:5,
+//     actionsBox:true,
+//     liveSearch:true,
+//     title:"请选择...",
+// });
     // 表格元素
     var $table = $('#table'),
         $remove = $('#remove'),
-        selections = [],
-        flag=0;
+        selections = [];
+    var report ={
+      getData:_.curry(function(callback,url){
+        var queryString={
+          data:{
+            groupID:"1"
+          }
+        }
+        request(url,queryString)
+        .done(function(ret){
+          alert(22);
+          callback();
+        })
+      }),
+      setTable:_.curry(function(columns,data){
+        alert(1);
+        console.log(columns);
+        var tablecolumns =columns(data);
+        initTable(data,tablecolumns)
 
-        data1 = [{
+      })
+    }
+    var url = function(){
+      return "http://localhost:3000/js/json/checkknowledge01.json";
+    }
+    var dataset =  function(){
+      return data1 =[{
             "groupShortName": "北京世纪滇风餐饮有限公司1",
             "shopID":"1",
             "orderNum1": "5",
@@ -166,19 +186,27 @@ var ddd = $(".selectpicker").selectpicker({
             "orderNum7": "4",
             "orderNum8": "4",
             "orderNum9": "4",
-            "orderNum10": "dataset[0].value1",
+            "orderNum10": "",
             "orderNum11": "",
             "orderNum12": ""
         }
+    ]
+    }
+    var columns =_.flowRight(setColumns,initTableHead);
+    var renderTable = _.flowRight(report.setTable(columns),dataset);
+    var app = _.flowRight(report.getData(renderTable),url);
 
-        ]
+    
+    // 传入的columns
+    // var columns1 = columns(data1);
+    // initTable(data1,columns1)
 
-
-function initTableHead(cleType,data){
+function initTableHead(data){
     var data = data[1],
         arr=[],
         i=1;
-    data =  _.omit(data,"groupShortName","shopID");
+    var cleType = $("select[name='dimension']").val();
+    data = _.omit(data,"groupShortName","shopID");
     $.each(data,function(key,value){
         if(data[key]!=""){
             // 构造动态表头，要判断年月周日，构造不同的对象
@@ -221,12 +249,12 @@ function initTableHead(cleType,data){
     })
     return arr;
     }
-
-function setColumns(cleType,data){
+function setColumns(arr){
      // var length =data[0].length-1;
     // 列横跨的长度
     var columns=[[]];
-    var arr = initTableHead(cleType,data);
+    var cleType = $("select[name='dimension']").val();
+    console.log(cleType);
     var length = arr.length;
     switch(cleType){
         case "1":
@@ -350,12 +378,10 @@ function setColumns(cleType,data){
                 }
            ]
         ];
-
         columns[1]=arr.concat(columns[1]);
             break;
         case "4":
         // do 季度
-
        columns= [
            [
                {   title: '店铺ID  ',
@@ -438,9 +464,7 @@ function requestData(){
     }
     request(url,queryString,1,12)
     .done(function(ret){
-
         var data = ret.data,
-            cleType = data.cleType,
         // 设置全局数据变量，响应成功之后，构造表格和图表数据
         data1 = [{
             "groupShortName": "北京世纪滇风餐饮有限公司1",
@@ -490,50 +514,52 @@ function requestData(){
             "orderNum11": "",
             "orderNum12": ""
         }
-
     ]
 
-    var columns = setColumns("2",data1);
-    initTable(data1,columns)
+    var columns =_.flowRight(setColumns,initTableHead);
+    // 传入的columns
+    var columns1 = columns(data1);
+    initTable(data1,columns1)
     })
 }
-
 function initTable(data,columns) {
+    $table.bootstrapTable('destroy');
     $table.bootstrapTable({
         data: data,
         columns: columns
     });
+    console.log("第一次")
     // sometimes footer render error.
-    setTimeout(function () {
-        $table.bootstrapTable('resetView');
-    }, 200);
-    $table.on('check.bs.table uncheck.bs.table ' +
-            'check-all.bs.table uncheck-all.bs.table', function () {
-        $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+    // setTimeout(function () {
+    //     $table.bootstrapTable('resetView');
+    // }, 200);
+    // $table.on('check.bs.table uncheck.bs.table ' +
+    //         'check-all.bs.table uncheck-all.bs.table', function () {
+    //     $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+    //     // save your data, here just save the current page
+    //     selections = getIdSelections();
+    //     // push or splice the selections if you want to save all data selections
+    // });
 
-        // save your data, here just save the current page
-        selections = getIdSelections();
-        // push or splice the selections if you want to save all data selections
-    });
-    $table.on('expand-row.bs.table', function (e, index, row, $detail) {
-        if (index % 2 == 1) {
-            $detail.html('Loading from ajax request...');
-            $.get('LICENSE', function (res) {
-                $detail.html(res.replace(/\n/g, '<br>'));
-            });
-        }
-    });
-    $table.on('all.bs.table', function (e, name, args) {
-        console.log(name, args)
-    });
-    $remove.click(function () {
-        var ids = getIdSelections();
-        $table.bootstrapTable('remove', {
-            field: 'id',
-            values: ids
-        });
-        $remove.prop('disabled', true);
-    });
+    // $table.on('expand-row.bs.table', function (e, index, row, $detail) {
+    //     if (index % 2 == 1) {
+    //         $detail.html('Loading from ajax request...');
+    //         $.get('LICENSE', function (res) {
+    //             $detail.html(res.replace(/\n/g, '<br>'));
+    //         });
+    //     }
+    // });
+    // $table.on('all.bs.table', function (e, name, args) {
+    //     console.log(name, args)
+    // });
+    // $remove.click(function () {
+    //     var ids = getIdSelections();
+    //     $table.bootstrapTable('remove', {
+    //         field: 'id',
+    //         values: ids
+    //     });
+    //     $remove.prop('disabled', true);
+    // });
     // $(window).resize(function () {
     //     $table.bootstrapTable('resetView', {
     //         height: a
@@ -546,14 +572,12 @@ function getIdSelections() {
         return row.id
     });
 }
-
 function responseHandler(res) {
     $.each(res.rows, function (i, row) {
         row.state = $.inArray(row.id, selections) !== -1;
     });
     return res;
 }
-
 function detailFormatter(index, row) {
     var html = [];
     $.each(row, function (key, value) {
@@ -561,8 +585,6 @@ function detailFormatter(index, row) {
     });
     return html.join('');
 }
-
-
 window.operateEvents = {
     'click .like': function (e, value, row, index) {
         alert('You click like action, row: ' + JSON.stringify(row));
@@ -574,26 +596,20 @@ window.operateEvents = {
         });
     }
 };
-
 function totalTextFormatter(data) {
     return 'Total';
 }
-
 function totalNameFormatter(data) {
     return data.length;
 }
-
 function hideFormatter(index,row){
     $.each(row,function(key,value){
-
         if(value===""){
             console.log(key);
             $('#table').bootstrapTable('hideColumn', key);
         }
     })
-
 }
-
 // 只写了一个
 function totalFormatter(value, row, index) {
     var total = 0;
@@ -603,17 +619,14 @@ function totalFormatter(value, row, index) {
             total+=parseInt(value);
         }
     })
-
     return total;
 }
-
 function getHeight() {
     return $(window).height() - $('h1').outerHeight(true);
 }
-
     $(function () {
-
-         var scripts=['js/common/extensions/export/bootstrap-table-export1.js','js/common/extensions/export/bootstrap-table-export.min.js','js/common/extensions/editable/bootstrap-table-editable.js','js/common/extensions/editable/bootstrap-table-editable1.js'],
+         // var scripts=['js/common/extensions/export/bootstrap-table-export1.js','js/common/extensions/export/bootstrap-table-export.min.js','js/common/extensions/editable/bootstrap-table-editable.js','js/common/extensions/editable/bootstrap-table-editable1.js'],
+         var scripts =[];
             eachSeries = function (arr, iterator, callback) {
                 callback = callback || function () {};
                 if (!arr.length) {
@@ -639,22 +652,18 @@ function getHeight() {
                 };
                 iterate();
             };
-
-        eachSeries(scripts, getScript, requestData);
-
-
+        eachSeries(scripts, getScript);
         // 查询功能
-        function searchReport(){
+        function searchReportPrams(){
             var arr =[];
             var searchItems=transformQueryString($("#search-items").serialize());
             console.log(searchItems);
-
         }
-
         $("#searchReportBtn").on("click",function(){
-            searchReport();
+          app("1");
+          // requestData();
+            // searchReportPrams();
         })
-
           // 选择月报表
         $("select[name='dimension']").on("change",function(){
             if(this.value==="3"){
@@ -663,15 +672,12 @@ function getHeight() {
                  $(".year-select").hide()
             }
         })
-
-
         // 切换视图
         $("#toggleChart").on("click",function(){
             var chartshow = $(".chartContainer").attr("data-show");
             console.log(typeof chartshow);
             console.log(chartshow)
             // 根据报表类型切换视图
-
             // var cleType = $("select[name='dimension']").val();
             // switch(cleType){
             //     case "1":
@@ -694,13 +700,11 @@ function getHeight() {
                 Xtittle:"日期",
                 Ytittle:"订单量"
             })
-
             }else{
                 $(".chartContainer").fadeOut().html("");
                 $(".chartContainer").attr("data-show","0");
             }
-            console.log(ddd.val());
-
+            // console.log(ddd.val());
         })
             var data = [
                 [
@@ -812,11 +816,9 @@ function getHeight() {
                     }
                 ]
             ]
-
 function showChart(options){
     // 1,商户名称，2,坐标轴标题，3,提示框标题;4,数据
     // 根据数据长度创建图表容器
-
     var length = options.data.length;
     for(var i=0; i<=length-1;i++){
         console.log(options.data[0][0].shopName);
@@ -840,7 +842,6 @@ function showChart(options){
             options.Tipsx+e.cx,
             options.Tipsy+e.cy
             ]
-
         };
         m.getTooltipText = function (e) {
             console.log(e);
@@ -848,30 +849,17 @@ function showChart(options){
             options.Tipsx+e.cx,
             options.Tipsy+e.cy
             ]
-
         };
         myChart.addLegend(60, 10, "50%", 20, "right");
         myChart.draw();
-
         $(".chartContainer").attr("data-show","1");
     }
-
 }
-
-
-
-
-
-
-
  });
-
-
     function getScript(url, callback) {
         var head = document.getElementsByTagName('head')[0];
         var script = document.createElement('script');
         script.src = url;
-
         var done = false;
         // Attach handlers for all browsers
         script.onload = script.onreadystatechange = function() {
@@ -880,14 +868,11 @@ function showChart(options){
                 done = true;
                 if (callback)
                     callback();
-
                 // Handle memory leak in IE
                 script.onload = script.onreadystatechange = null;
             }
         };
-
         head.appendChild(script);
-
         // We handle everything using the script element injection
         return undefined;
     }

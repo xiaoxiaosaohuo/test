@@ -15,50 +15,97 @@
     </div>
 
 
-         <div id="toolbar">
-            <form id="search-items" action="#">
-                <div class="form-inline" role="form">
-                    <div class="form-group">
-                        <span>维度: </span>
-                         <select  id="" name="dimension"  class="form-control chosen">
-                            <option role="option" value="1">日报表</option>
-                            <option role="option" value="2">周报表</option>
-                            <option role="option" value="3">月报表</option>
-                            <option role="option" value="4">季度报表</option>
-                        </select>
+      <div class="panel-body" style="padding-bottom:0px;">
+        <div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <form id="search-prams" action="#" class="">
+                    <div class="form-inline" role="form">
+                        <div class="form-group mt-15">
+                            <span>维度: </span>
+                             <select  id="" name="dimension"  class="form-control chosen" required>
+                              <option role="option" value="">请选择</option>
+                                <option role="option" value="1">日报表</option>
+                                <option role="option" value="2">周报表</option>
+                                <option role="option" value="3">月报表</option>
+                                <option role="option" value="4">季度报表</option>
+                            </select>
+                        </div>
+                        <div class="form-group year-select mt-15" style="display:none" >
+                            <span>年度: </span>
+                            <select  id="" name="year"  class="form-control chosen" required>
+                                <option role="option" value="2">2016</option>
+                                <option role="option" value="1">2015</option>
+                            </select>
+                        </div>
+                        <div class="form-group month-select mt-15"  style="display:none" >
+                            <span>月份: </span>
+                            <select  id="" name="month"  class="form-control chosen" required>
+                                <option role="option" value="1">1月</option>
+                                <option role="option" value="2">2月</option>
+                                <option role="option" value="1">3月</option>
+                                <option role="option" value="2">4月</option>
+                                <option role="option" value="1">5月</option>
+                                <option role="option" value="2">6月</option>
+                                <option role="option" value="1">7月</option>
+                                <option role="option" value="2">8月</option>
+                                <option role="option" value="1">9月</option>
+                                <option role="option" value="2">10月</option>
+                                <option role="option" value="1">11月</option>
+                                <option role="option" value="2">12月</option>
+                            </select>
+                        </div>
+                        <div class="form-group week-start mt-15"  style="display:none" >
+                            <span>起始日期: </span>
+                            <div class='input-group date' id='week-start' data-date-format="yyyy-mm-dd">
+                                <input type='text' class="form-control" name="startweek" required />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar">
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group week-end mt-15"  style="display:none" >
+                            <span>结束日期: </span>
+                            <div class='input-group date' id='week-end' data-date-format="yyyy-mm-dd">
+                                <input type='text' class="form-control" name="endweek" required />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar">
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group date-select mt-15"  style="display:none" >
+                            <span>日期: </span>
+                            <div class='input-group date' id='searchDate' data-date-format="yyyy-mm-dd">
+                                <input type='text' class="form-control" name="searchDate" required />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar">
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                         <div class="form-group mt-15">
+                            <span>顺序: </span>
+                            <select  id="" name="order"  class="form-control chosen">
+                                <option role="option" value="0">升序</option>
+                                <option role="option" value="1">降序</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group year-select" style="display:none;" >
-                        <span>年度: </span>
-                        <select  id="" name="year"  class="form-control chosen">
-                            <option role="option" value="2016">2016</option>
-                            <option role="option" value="2015">2015</option>
-                        </select>
-                    </div>
-                     <div class="form-group">
-                        <span>级别: </span>
-                        <select  id="" name="level"  class="form-control chosen">
-                            <option role="option" value="0">集团级别</option>
-                            <option role="option" value="1">店铺级别</option>
-                            <option role="option" value="2">品牌级别</option>
-                        </select>
-                    </div>
-                     <div class="form-group">
-                        <span>顺序: </span>
-                        <select  id="" name="order"  class="form-control chosen">
-                            <option role="option" value="0">升序</option>
-                            <option role="option" value="1">降序</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <button type="button" class="form-control btn btn-primary" id="searchReportBtn">查询
-                        </button>
-                    </div>
-                    <div class="form-group">
+                    <div class="form-group pull-right mt-15">
                         <button type="button" class="form-control btn btn-primary" id="toggleChart">切换视图
                         </button>
                     </div>
-                </div>
-            </form>
+                    <div class="form-group pull-right mt-15">
+                        <button type="button" class="form-control btn btn-primary" id="searchReportBtn">查询
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+       <div id="toolbar">
         </div>
         <table id="table"
            data-toolbar="#toolbar"
@@ -71,6 +118,7 @@
            data-side-pagination="client"
            data-response-handler="responseHandler">
         </table>
+    </div>
 </div>
 
 <div class="row chartContainer col-md-12 col-lg-12" data-show="0">
@@ -86,48 +134,47 @@
 <br>
 <br>
 <br>
-<div class="col-md-6 col-lg-6" id="selectpicker">
-<!-- <select  id="aaaa" name="level"  class="form-control selectpicker" multiple="multiple" >
-    <option role="option" value="0">集团级别</option>
-    <option role="option" value="1">店铺级别</option>
-    <option role="option" value="2">品牌级别</option>
-    <option role="option" value="0">集团级别</option>
-    <option role="option" value="1">店铺级别</option>
-    <option role="option" value="2">品牌级别</option>
-    <option role="option" value="0">集团级别</option>
-    <option role="option" value="1">店铺级别</option>
-    <option role="option" value="2">品牌级别</option>
-    <option role="option" value="0">集团级别</option>
-    <option role="option" value="1">店铺级别</option>
-    <option role="option" value="2">品牌级别</option>
-    <option role="option" value="0">集团级别</option>
-    <option role="option" value="1">店铺级别</option>
-</select> -->
-</div>
-<!-- <script src="./js/common/bootstrap-select.js"></script> -->
+
+
 <script>
-// var ddd = $(".selectpicker").selectpicker({
-//     container:"#selectpicker",
-//     size:5,
-//     actionsBox:true,
-//     liveSearch:true,
-//     title:"请选择...",
-// });
     // 表格元素
     var $table = $('#table'),
         $remove = $('#remove'),
         selections = [];
+
+
+        $('#searchDate').datetimepicker({
+            language:  'zh-CN',
+            autoclose: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0,
+            pickerPosition:'bottom-left'
+            });
+        $('#week-start').datetimepicker({
+            language:  'zh-CN',
+            autoclose: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0,
+            pickerPosition:'bottom-left'
+            });
+        $('#week-end').datetimepicker({
+            language:  'zh-CN',
+            autoclose: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0,
+            pickerPosition:'bottom-left'
+            });
+
+
+
     var report ={
       getData:_.curry(function(callback,url){
-        var queryString={
-          data:{
-            groupID:"1"
-          }
-        }
-        request(url,queryString)
+        request(url.url,url.queryString)
         .done(function(ret){
-          alert(22);
-          callback();
+          callback(ret);
         })
       }),
       setTable:_.curry(function(columns,data){
@@ -139,9 +186,19 @@
       })
     }
     var url = function(){
-      return "http://localhost:3000/js/json/checkknowledge01.json";
+        return {
+            url:"http://localhost:3000/js/json/checkknowledge01.json",
+            queryString:{
+                data:{
+                    groupID:"1"
+                }
+            }
+        }
     }
-    var dataset =  function(){
+    // 根据返回数据重新构造
+    var dataset =  function(ret){
+        console.log(ret.data);
+        // 在此构造
       return data1 =[{
             "groupShortName": "北京世纪滇风餐饮有限公司1",
             "shopID":"1",
@@ -196,10 +253,6 @@
     var renderTable = _.flowRight(report.setTable(columns),dataset);
     var app = _.flowRight(report.getData(renderTable),url);
 
-    
-    // 传入的columns
-    // var columns1 = columns(data1);
-    // initTable(data1,columns1)
 
 function initTableHead(data){
     var data = data[1],
@@ -411,27 +464,6 @@ function setColumns(arr){
                }
            ],
             [   {
-                   title: '第一季度',
-                   colspan: 1,
-                   align: 'center'
-               }
-               ,
-               {
-                   title: '第二季度',
-                   colspan: 1,
-                   align: 'center'
-               },
-               {
-                   title: '第三季度',
-                   colspan: 1,
-                   align: 'center'
-               },
-               {
-                   title: '第四季度',
-                   colspan: 1,
-                   align: 'center'
-               },
-                {
                     field: 'operate',
                     title: '合计',
                     align: 'center',
@@ -625,51 +657,77 @@ function getHeight() {
     return $(window).height() - $('h1').outerHeight(true);
 }
     $(function () {
-         // var scripts=['js/common/extensions/export/bootstrap-table-export1.js','js/common/extensions/export/bootstrap-table-export.min.js','js/common/extensions/editable/bootstrap-table-editable.js','js/common/extensions/editable/bootstrap-table-editable1.js'],
-         var scripts =[];
-            eachSeries = function (arr, iterator, callback) {
-                callback = callback || function () {};
-                if (!arr.length) {
-                    return callback();
-                }
-                var completed = 0;
-                var iterate = function () {
-                    iterator(arr[completed], function (err) {
-                        if (err) {
-                            callback(err);
-                            callback = function () {};
-                        }
-                        else {
-                            completed += 1;
-                            if (completed >= arr.length) {
-                                callback(null);
+        var scripts=['js/common/extensions/export/bootstrap-table-export1.js','js/common/extensions/export/bootstrap-table-export.min.js','js/common/extensions/editable/bootstrap-table-editable.js','js/common/extensions/editable/bootstrap-table-editable1.js'],
+                eachSeries = function (arr, iterator, callback) {
+                    callback = callback || function () {};
+                    if (!arr.length) {
+                        return callback();
+                    }
+                    var completed = 0;
+                    var iterate = function () {
+                        iterator(arr[completed], function (err) {
+                            if (err) {
+                                callback(err);
+                                callback = function () {};
                             }
                             else {
-                                iterate();
+                                completed += 1;
+                                if (completed >= arr.length) {
+                                    callback(null);
+                                }
+                                else {
+                                    iterate();
+                                }
                             }
-                        }
-                    });
-                };
+                        });
+                    };
                 iterate();
             };
         eachSeries(scripts, getScript);
         // 查询功能
         function searchReportPrams(){
             var arr =[];
-            var searchItems=transformQueryString($("#search-items").serialize());
-            console.log(searchItems);
+            var searchItems=transformQueryString($("#search-prams").serialize());
+            var weekStartArr = searchItems.startweek.split("-");
+            var weekEndArr = searchItems.endweek.split("-");
+            var startweek = getYearWeek(weekStartArr[0],weekStartArr[1],weekStartArr[2]);
+            var endweek = getYearWeek(weekEndArr[0],weekEndArr[1],weekEndArr[2]);
+            console.log(startweek,endweek);
         }
+
+        function hidePrams(options){
+            options.forEach(function(n) {
+                $(n).hide();
+            })
+        }
+       
         $("#searchReportBtn").on("click",function(){
-          app("1");
-          // requestData();
-            // searchReportPrams();
+            searchReportPrams();
+            var searchPramsForm = $("#search-prams");
+            app("1");
+            searchReportPrams();
         })
           // 选择月报表
         $("select[name='dimension']").on("change",function(){
-            if(this.value==="3"){
-               $(".year-select").show()
-            }else{
-                 $(".year-select").hide()
+            var value = this.value;
+            switch(value){
+                case "1" :
+                $(".date-select").show();
+                 hidePrams([".year-select",".week-start",".week-end","month-select"]);
+                break;
+                case "2" :
+                $(".week-start").show();
+                $(".week-end").show();
+                hidePrams([".month-select",".year-select",".date-select"])
+                break;
+                case "3" :
+                   $(".year-select").show();
+                   hidePrams([".month-select",".week-start",".week-end",".date-select"])
+                break;
+                case "4" :
+                 $(".year-select").show();
+                hidePrams([".week-start",".week-end",".date-select"]);
+                break;
             }
         })
         // 切换视图
@@ -677,18 +735,6 @@ function getHeight() {
             var chartshow = $(".chartContainer").attr("data-show");
             console.log(typeof chartshow);
             console.log(chartshow)
-            // 根据报表类型切换视图
-            // var cleType = $("select[name='dimension']").val();
-            // switch(cleType){
-            //     case "1":
-            //     break;
-            //     case "2":
-            //     break;
-            //     case "3":
-            //     break;
-            //     case "4":
-            //     break;
-            // }
             $(".chartContainer").fadeIn();
             if(chartshow==="0"){
                 showChart({
@@ -706,156 +752,158 @@ function getHeight() {
             }
             // console.log(ddd.val());
         })
-            var data = [
-                [
-                    {  "shopName":"兰博基尼",
-                        "date": "2013-01",  
-                        "order":    12   
-                    },{  "shopName":"兰博基尼",
-                        "date": "2013-02",  
-                        "order":    342  
-                    },{  "shopName":"兰博基尼",
-                        "date": "2013-03",  
-                        "order":    34   
-                    },{  "shopName":"兰博基尼",
-                        "date": "2013-04",  
-                        "order":    89  
-                    },{  "shopName":"兰博基尼",
-                        "date": "2013-05",  
-                        "order":    26   
-                    },{  "shopName":"兰博基尼",
-                        "date": "2013-06",  
-                        "order":    45  
-                    },{  "shopName":"兰博基尼",
-                        "date": "2013-07",  
-                        "order":    80 
-                    },{  "shopName":"兰博基尼",
-                        "date": "2013-08",  
-                        "order":    12   
-                    },{  "shopName":"兰博基尼",
-                        "date": "2013-09",  
-                        "order":    40  
-                    },{  "shopName":"兰博基尼",
-                        "date": "2013-10",  
-                        "order":    28   
-                    },{  "shopName":"兰博基尼",
-                        "date": "2013-11",  
-                        "order":    4  
-                    }
-                ],
-                [
-                 {  "shopName":"雪佛兰",
-                        "date": "2013-01",  
-                        "order":    134   
-                    },{  "shopName":"雪佛兰",
-                        "date": "2013-02",  
-                        "order":    342  
-                    },{  "shopName":"雪佛兰",
-                        "date": "2013-03",  
-                        "order":    34   
-                    },{  "shopName":"雪佛兰",
-                        "date": "2013-04",  
-                        "order":    89  
-                    },{  "shopName":"雪佛兰",
-                        "date": "2013-05",  
-                        "order":    26   
-                    },{  "shopName":"雪佛兰",
-                        "date": "2013-06",  
-                        "order":    455  
-                    },{  "shopName":"雪佛兰",
-                        "date": "2013-07",  
-                        "order":    80 
-                    },{  "shopName":"雪佛兰",
-                        "date": "2013-08",  
-                        "order":    12   
-                    },{  "shopName":"雪佛兰",
-                        "date": "2013-09",  
-                        "order":    40  
-                    },{  "shopName":"雪佛兰",
-                        "date": "2013-10",  
-                        "order":    28   
-                    },{  "shopName":"雪佛兰",
-                        "date": "2013-11",  
-                        "order":    123  
-                    }
-                ],
-                [
-                 {  "shopName":"劳斯莱斯",
-                        "date": "2013-01",  
-                        "order":    12   
-                    },{  "shopName":"劳斯莱斯",
-                        "date": "2013-02",  
-                        "order":    342  
-                    },{  "shopName":"劳斯莱斯",
-                        "date": "2013-03",  
-                        "order":    34   
-                    },{  "shopName":"劳斯莱斯",
-                        "date": "2013-04",  
-                        "order":    89  
-                    },{  "shopName":"劳斯莱斯",
-                        "date": "2013-05",  
-                        "order":    26   
-                    },{  "shopName":"劳斯莱斯",
-                        "date": "2013-06",  
-                        "order":    45  
-                    },{  "shopName":"劳斯莱斯",
-                        "date": "2013-07",  
-                        "order":    80 
-                    },{  "shopName":"劳斯莱斯",
-                        "date": "2013-08",  
-                        "order":    12   
-                    },{  "shopName":"劳斯莱斯",
-                        "date": "2013-09",  
-                        "order":    700  
-                    },{  "shopName":"劳斯莱斯",
-                        "date": "2013-10",  
-                        "order":    28   
-                    },{  "shopName":"劳斯莱斯",
-                        "date": "2013-11",  
-                        "order":    4  
-                    }
+        var data = [
+            [
+                {  "shopName":"兰博基尼",
+                    "date": "2013-01",  
+                    "order":    12   
+                },{  "shopName":"兰博基尼",
+                    "date": "2013-02",  
+                    "order":    342  
+                },{  "shopName":"兰博基尼",
+                    "date": "2013-03",  
+                    "order":    34   
+                },{  "shopName":"兰博基尼",
+                    "date": "2013-04",  
+                    "order":    89  
+                },{  "shopName":"兰博基尼",
+                    "date": "2013-05",  
+                    "order":    26   
+                },{  "shopName":"兰博基尼",
+                    "date": "2013-06",  
+                    "order":    45  
+                },{  "shopName":"兰博基尼",
+                    "date": "2013-07",  
+                    "order":    80 
+                },{  "shopName":"兰博基尼",
+                    "date": "2013-08",  
+                    "order":    12   
+                },{  "shopName":"兰博基尼",
+                    "date": "2013-09",  
+                    "order":    40  
+                },{  "shopName":"兰博基尼",
+                    "date": "2013-10",  
+                    "order":    28   
+                },{  "shopName":"兰博基尼",
+                    "date": "2013-11",  
+                    "order":    4  
+                }
+            ],
+            [
+             {  "shopName":"雪佛兰",
+                    "date": "2013-01",  
+                    "order":    134   
+                },{  "shopName":"雪佛兰",
+                    "date": "2013-02",  
+                    "order":    342  
+                },{  "shopName":"雪佛兰",
+                    "date": "2013-03",  
+                    "order":    34   
+                },{  "shopName":"雪佛兰",
+                    "date": "2013-04",  
+                    "order":    89  
+                },{  "shopName":"雪佛兰",
+                    "date": "2013-05",  
+                    "order":    26   
+                },{  "shopName":"雪佛兰",
+                    "date": "2013-06",  
+                    "order":    455  
+                },{  "shopName":"雪佛兰",
+                    "date": "2013-07",  
+                    "order":    80 
+                },{  "shopName":"雪佛兰",
+                    "date": "2013-08",  
+                    "order":    12   
+                },{  "shopName":"雪佛兰",
+                    "date": "2013-09",  
+                    "order":    40  
+                },{  "shopName":"雪佛兰",
+                    "date": "2013-10",  
+                    "order":    28   
+                },{  "shopName":"雪佛兰",
+                    "date": "2013-11",  
+                    "order":    123  
+                }
+            ],
+            [
+             {  "shopName":"劳斯莱斯",
+                    "date": "2013-01",  
+                    "order":    12   
+                },{  "shopName":"劳斯莱斯",
+                    "date": "2013-02",  
+                    "order":    342  
+                },{  "shopName":"劳斯莱斯",
+                    "date": "2013-03",  
+                    "order":    34   
+                },{  "shopName":"劳斯莱斯",
+                    "date": "2013-04",  
+                    "order":    89  
+                },{  "shopName":"劳斯莱斯",
+                    "date": "2013-05",  
+                    "order":    26   
+                },{  "shopName":"劳斯莱斯",
+                    "date": "2013-06",  
+                    "order":    45  
+                },{  "shopName":"劳斯莱斯",
+                    "date": "2013-07",  
+                    "order":    80 
+                },{  "shopName":"劳斯莱斯",
+                    "date": "2013-08",  
+                    "order":    12   
+                },{  "shopName":"劳斯莱斯",
+                    "date": "2013-09",  
+                    "order":    700  
+                },{  "shopName":"劳斯莱斯",
+                    "date": "2013-10",  
+                    "order":    28   
+                },{  "shopName":"劳斯莱斯",
+                    "date": "2013-11",  
+                    "order":    4  
+                }
+            ]
+        ]
+    function showChart(options){
+        // 1,商户名称，2,坐标轴标题，3,提示框标题;4,数据
+        // 根据数据长度创建图表容器
+        var length = options.data.length;
+        for(var i=0; i<=length-1;i++){
+            console.log(options.data[0][0].shopName);
+            var svg = dimple.newSvg(".chartContainer", "100%", 400);
+            svg.attr("class","col-md-12 col-lg-6");
+            var myChart = new dimple.chart(svg, options.data[i]);
+            myChart.setBounds(60, 30, '75%', 300);
+            var x = myChart.addCategoryAxis("x", options.X);
+            x.title = options.Xtittle;
+            x.addOrderRule("Date");
+            var y = myChart.addMeasureAxis("y", options.Y);
+            y.title = options.Ytittle;
+            myChart.addColorAxis("order", ["green", "yellow", "red"]);
+            var lines = myChart.addSeries(options.data[i][0].shopName,dimple.plot.line);
+                lines.lineWeight = 5;
+                lines.lineMarkers = true;
+            var m = myChart.addSeries(null,dimple.plot.bubble);
+            lines.getTooltipText = function (e) {
+                console.log(e);
+                return [
+                options.Tipsx+e.cx,
+                options.Tipsy+e.cy
                 ]
-            ]
-function showChart(options){
-    // 1,商户名称，2,坐标轴标题，3,提示框标题;4,数据
-    // 根据数据长度创建图表容器
-    var length = options.data.length;
-    for(var i=0; i<=length-1;i++){
-        console.log(options.data[0][0].shopName);
-        var svg = dimple.newSvg(".chartContainer", "100%", 400);
-        svg.attr("class","col-md-12 col-lg-6");
-        var myChart = new dimple.chart(svg, options.data[i]);
-        myChart.setBounds(60, 30, '75%', 300);
-        var x = myChart.addCategoryAxis("x", options.X);
-        x.title = options.Xtittle;
-        x.addOrderRule("Date");
-        var y = myChart.addMeasureAxis("y", options.Y);
-        y.title = options.Ytittle;
-        myChart.addColorAxis("order", ["green", "yellow", "red"]);
-        var lines = myChart.addSeries(options.data[i][0].shopName,dimple.plot.line);
-            lines.lineWeight = 5;
-            lines.lineMarkers = true;
-        var m = myChart.addSeries(null,dimple.plot.bubble);
-        lines.getTooltipText = function (e) {
-            console.log(e);
-            return [
-            options.Tipsx+e.cx,
-            options.Tipsy+e.cy
-            ]
-        };
-        m.getTooltipText = function (e) {
-            console.log(e);
-            return [
-            options.Tipsx+e.cx,
-            options.Tipsy+e.cy
-            ]
-        };
-        myChart.addLegend(60, 10, "50%", 20, "right");
-        myChart.draw();
-        $(".chartContainer").attr("data-show","1");
+            };
+            m.getTooltipText = function (e) {
+                console.log(e);
+                return [
+                options.Tipsx+e.cx,
+                options.Tipsy+e.cy
+                ]
+            };
+            myChart.addLegend(60, 10, "50%", 20, "right");
+            myChart.draw();
+            $(".chartContainer").attr("data-show","1");
+        }
     }
-}
  });
+
+
     function getScript(url, callback) {
         var head = document.getElementsByTagName('head')[0];
         var script = document.createElement('script');
@@ -876,45 +924,88 @@ function showChart(options){
         // We handle everything using the script element injection
         return undefined;
     }
+
+    function getYearWeek (a, b, c) {
+        var date1 = new Date(a, parseInt(b) - 1, c), date2 = new Date(a, 0, 1),
+        d = Math.round((date1.valueOf() - date2.valueOf()) / 86400000);
+        return Math.ceil( (d + ((date2.getDay() + 1) - 1)) / 7 );
+    };
+
+    // 验证
+    // $("#search-prams").bootstrapValidator({
+    //         excluded: ':disabled',
+    //         feedbackIcons:{
+    //         valid: 'glyphicon glyphicon-ok',
+    //         invalid: 'glyphicon glyphicon-remove',
+    //         validating: 'glyphicon glyphicon-refresh'
+    //         },
+    //         fields:{
+    //             dimension:{
+    //                 validators:{
+    //                     notEmpty:{
+    //                         message:"请选择",
+    //                         },
+    //                 }
+    //             },
+    //             year:{
+    //                 validators:{
+    //                     notEmpty:{
+    //                         message:"请选择",
+    //                     },
+    //                 }
+    //             },
+    //             startweek:{
+    //                 validators:{
+    //                     notEmpty:{
+    //                         message:"请选择",
+    //                     },
+    //                 }
+    //             },
+    //             endweek:{
+    //                 validators:{
+    //                     notEmpty:{
+    //                         message:"请选择",
+    //                     },
+    //                 },
+    //             },
+    //             searchDate:{
+    //                 validators:{
+    //                     notEmpty:{
+    //                         message:"请选择",
+    //                     },
+    //                 }
+    //             },
+    //             order:{
+    //                 validators:{
+    //                     notEmpty:{
+    //                         message:"请选择",
+    //                     },
+    //                 }
+    //             },
+
+    //         }
+    //     })
+
+       var datatest =  {
+            "processTime": "20160819152944",
+            "data": {
+                "pageCount": 0,
+                "pageNo": 0,
+                "pageSize": 0,
+                "records": [
+                    {
+                        "groupID": "5",
+                        "groupOrderData": "[reportDate:201601;orderCountTotal:257, reportDate:201602;orderCountTotal:190, reportDate\r\n:201603;orderCountTotal:289, reportDate:201604;orderCountTotal:318, reportDate:201605;orderCountTotal\r\n:316, reportDate:201606;orderCountTotal:656, reportDate:201607;orderCountTotal:873, reportDate:201608\r\n;orderCountTotal:3]",
+                        "groupOrderCountTotal": "2902"
+                    }
+                ],
+                "totalSize": 0
+            },
+            "resultmsg": "执行成功",
+            "resultcode": "000"
+        }
+
+        var data22 = datatest.data.records[0].groupOrderData;
+        data22
 </script>
 
-function request(service, queryString, pageNo, pageSize, asyncFlag){
-    var args = Array.prototype.slice.call(arguments);
-    var options={};
-    var flag = true;
-    var defaults ={
-            service:service,
-            data:{
-                Page:{
-                    pageNo: 1,
-                    pageSize:100
-                }
-            }
-        };
-
-    if(args.length===1){
-        options = $.extend(true,defaults,args[0]) 
-        console.log(options);      
-    }else{
-
-        if (typeof(pageNo) == "undefined") pageNo = "1";
-        if (typeof(pageSize) == "undefined") pageSize = "-1";
-        if (typeof(queryString) == "undefined") queryString = "";
-        if (typeof(asyncFlag) != "undefined" && asyncFlag == 1) {
-            flag = false;
-        }
-        options =$.extend(true,defaults,queryString);
-        console.log(options); 
-     }
-    
-    var pdata =JSON.stringify(options.data);
-    console.log(pdata)
-    var params = "pdata=" + pdata; //URL参数
-       return  $.ajax({
-            url: options.service,
-            type: 'get',
-            data: params,
-            async: flag,
-            dataType: "json"
-        });
-    }
